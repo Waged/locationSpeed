@@ -40,4 +40,5 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:src="@drawable/ic_renew" />
+
 </RelativeLayout>

@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     //LOCATION LINKED DECLARATIONS
     protected static final String TAG = "location-updates-sample";
     //30 SECS EVERY TIME YOU NEED LOCATION UPDATES INTERVAL
-    public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 30000;
+    public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 1000;
     // The fastest update interval. It is not updated more frequently than this value.
     public static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
             UPDATE_INTERVAL_IN_MILLISECONDS / 2;
@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         tvSpeed = findViewById(R.id.tv_speed);
         mRequestingLocationUpdates = false;
         mLastUpdateTime = "";
+
         updateValuesFromBundle(savedInstanceState);
         buildGoogleApiClient();
     }
@@ -110,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -124,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     } else {
                         Log.i(TAG, "it's been rationaled");
                         showRationaleDialog();
-
                     }
                 }
                 break;
@@ -288,7 +289,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     public static boolean isPlayServicesAvailable(Context context) {
-        // Google Play Service APKが有効かどうかチェックする
+        // Google Play Service Checker
         int resultCode = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context);
         if (resultCode != ConnectionResult.SUCCESS) {
             GoogleApiAvailability.getInstance().getErrorDialog((Activity) context, resultCode, 2).show();
@@ -305,7 +306,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         } else {
             return;
         }
-
         if (Build.VERSION.SDK_INT < 23) {
             startLocationUpdates();
             return;
